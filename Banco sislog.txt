@@ -1,0 +1,257 @@
+-- phpMyAdmin SQL Dump
+-- version 3.2.0.1
+-- http://www.phpmyadmin.net
+--
+-- Servidor: localhost
+-- Tempo de Geração: Jun 11, 2010 as 11:17 
+-- Versão do Servidor: 5.1.37
+-- Versão do PHP: 5.3.0
+
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+
+--
+-- Banco de Dados: `bdsislog`
+--
+
+CREATE DATABASE `bdsislog` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `bdsislog`;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `administrador`
+--
+
+CREATE TABLE IF NOT EXISTS `administrador` (
+  `login_administrador` varchar(10) NOT NULL,
+  `senha_administrador` int(10) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `administrador`
+--
+
+INSERT INTO `administrador` (`login_administrador`, `senha_administrador`) VALUES
+('admin', 123456);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `controle`
+--
+
+CREATE TABLE IF NOT EXISTS `controle` (
+  `onibus_controle` int(11) NOT NULL,
+  `parada_controle` int(11) NOT NULL,
+  `data_controle` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `id_controle` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id_controle`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+
+--
+-- Extraindo dados da tabela `controle`
+--
+
+INSERT INTO `controle` (`onibus_controle`, `parada_controle`, `data_controle`, `id_controle`) VALUES
+(1, 4, '2009-05-18 14:48:55', 1),
+(2, 6, '2009-05-18 14:48:55', 2),
+(3, 5, '2009-05-18 14:48:55', 3),
+(4, 1, '2009-05-18 14:48:55', 4),
+(5, 3, '2009-05-18 14:48:55', 5);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `empresa`
+--
+
+CREATE TABLE IF NOT EXISTS `empresa` (
+  `nome_empresa` varchar(80) NOT NULL,
+  `id_empresa` tinyint(4) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id_empresa`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Extraindo dados da tabela `empresa`
+--
+
+INSERT INTO `empresa` (`nome_empresa`, `id_empresa`) VALUES
+('Taguatur', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `linha`
+--
+
+CREATE TABLE IF NOT EXISTS `linha` (
+  `nome_linha` varchar(80) NOT NULL,
+  `numero_linha` int(4) NOT NULL,
+  `id_linha` tinyint(4) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id_linha`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+
+--
+-- Extraindo dados da tabela `linha`
+--
+
+INSERT INTO `linha` (`nome_linha`, `numero_linha`, `id_linha`) VALUES
+('Campus/Integra?', 311, 1),
+('Campus/Centro', 305, 2),
+('Cohatrac IV', 86, 3),
+('Circular 1', 201, 4),
+('Cohatrac São Francisco', 86, 5),
+('Cohatrac Rodoviaria', 82, 6),
+('Maiobão L2', 74, 7);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `log`
+--
+
+CREATE TABLE IF NOT EXISTS `log` (
+  `onibus_log` int(11) NOT NULL,
+  `parada_log` int(11) NOT NULL,
+  `data_log` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `id_log` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id_log`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Extraindo dados da tabela `log`
+--
+
+INSERT INTO `log` (`onibus_log`, `parada_log`, `data_log`, `id_log`) VALUES
+(6, 13, '2010-02-21 20:18:43', 2),
+(7, 12, '2010-02-21 20:45:48', 3);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `marca`
+--
+
+CREATE TABLE IF NOT EXISTS `marca` (
+  `nome_marca` varchar(80) NOT NULL,
+  `id_marca` tinyint(4) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id_marca`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Extraindo dados da tabela `marca`
+--
+
+INSERT INTO `marca` (`nome_marca`, `id_marca`) VALUES
+('Volkswagen', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `modelo`
+--
+
+CREATE TABLE IF NOT EXISTS `modelo` (
+  `nome_modelo` varchar(80) NOT NULL,
+  `marca_modelo` tinyint(4) NOT NULL,
+  `id_modelo` tinyint(4) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id_modelo`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Extraindo dados da tabela `modelo`
+--
+
+INSERT INTO `modelo` (`nome_modelo`, `marca_modelo`, `id_modelo`) VALUES
+(' VW 15.190 EOD', 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `onibus`
+--
+
+CREATE TABLE IF NOT EXISTS `onibus` (
+  `ano_onibus` year(4) NOT NULL,
+  `empresa_onibus` tinyint(4) NOT NULL,
+  `mac_onibus` varchar(17) NOT NULL,
+  `linha_onibus` tinyint(4) NOT NULL,
+  `modelo_onibus` tinyint(4) NOT NULL,
+  `id_onibus` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id_onibus`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+
+--
+-- Extraindo dados da tabela `onibus`
+--
+
+INSERT INTO `onibus` (`ano_onibus`, `empresa_onibus`, `mac_onibus`, `linha_onibus`, `modelo_onibus`, `id_onibus`) VALUES
+(2007, 1, '00:14:d1:31:a4:da', 1, 1, 1),
+(2007, 1, '00:11:5c:bd:b1:ca', 1, 1, 2),
+(2007, 1, '00:19:5b:bd:b1:c5', 1, 1, 3),
+(2007, 1, '00:11:d1:31:a4:d1', 1, 1, 4),
+(2007, 1, '00:01:91:74:72:dc', 1, 1, 5),
+(2002, 1, '00:15:6d:a9:90:e8', 3, 1, 6),
+(2003, 1, '00:21:65:3c:31:47', 3, 1, 7);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `parada`
+--
+
+CREATE TABLE IF NOT EXISTS `parada` (
+  `mac_parada` varchar(17) NOT NULL,
+  `local_parada` varchar(80) NOT NULL,
+  `referencia_parada` varchar(80) NOT NULL,
+  `id_parada` int(11) NOT NULL AUTO_INCREMENT,
+  `nome_parada` varchar(50) NOT NULL,
+  PRIMARY KEY (`id_parada`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
+
+--
+-- Extraindo dados da tabela `parada`
+--
+
+INSERT INTO `parada` (`mac_parada`, `local_parada`, `referencia_parada`, `id_parada`, `nome_parada`) VALUES
+('00:14:d1:31:a4:da', 'terminal praia grande', 'plataforma 2 - cohatrac IV', 15, 'cohatrac IV - terminal praia grande'),
+('00:23:69:5c:31:47', 'avenida jeronimo de albuquerque', 'em frente ao supermercado Mateus', 14, 'parada Mateus'),
+('00:21:91:74:72:dc', 'terminal de integracao cohab', 'plataforma 2 - Cohatrac IV', 13, 'Cohatrac IV - terminal cohab'),
+('00:21:91:d1:ba:9c', 'avenida principal cohatrac', 'em frente a igreja catolica', 12, 'parada igreja Católica'),
+('00:15:6d:a9:90:f8', 'avenida principal cohatrac', 'em frente aos correios', 16, 'parada correios'),
+('00:22:69:5c:31:47', 'Av. Jeronimo de Albuquerque', 'em frente ao hopital São Domingos', 17, 'parada São Domingos'),
+('00:11:d1:31:a4:da', 'Avenida Carlos Cunha', 'em frente ao Tribunal de Contas', 18, 'parada Tce'),
+('00:15:d1:31:a5:da', 'Rua Barão de Itapary', 'em frente ao hospital Universitário', 19, 'parada Dutra');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `rota`
+--
+
+CREATE TABLE IF NOT EXISTS `rota` (
+  `ordem_rota` tinyint(4) NOT NULL,
+  `parada_rota` tinyint(4) NOT NULL,
+  `linha_rota` tinyint(4) NOT NULL,
+  `id_rota` tinyint(4) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id_rota`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
+
+--
+-- Extraindo dados da tabela `rota`
+--
+
+INSERT INTO `rota` (`ordem_rota`, `parada_rota`, `linha_rota`, `id_rota`) VALUES
+(6, 6, 1, 7),
+(1, 1, 1, 2),
+(2, 2, 1, 3),
+(3, 3, 1, 4),
+(4, 4, 1, 5),
+(5, 5, 1, 6),
+(1, 12, 3, 9),
+(2, 13, 3, 10),
+(3, 14, 3, 11),
+(4, 15, 3, 12),
+(8, 12, 1, 13),
+(1, 16, 5, 14),
+(2, 17, 5, 15);
